@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-peach: #ff9e7d;
+  --color-yellow: #ffd966;
+  --color-slate: #1e293b;
+  --color-neutral: #f8fafc;
+
+  --color-primary: #94492e;
+  --color-primary-container: #ff9e7d;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #78331a;
+  --color-secondary-container: #fcd664;
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #54433d;
+  --color-surface: #f7f9fb;
+  --color-surface-variant: #e0e3e5;
+  --color-surface-container-low: #f2f4f6;
+  --color-surface-container: #eceef0;
+  --color-surface-container-high: #e6e8ea;
+  --color-surface-container-highest: #e0e3e5;
+  --color-outline: #87736c;
+  --color-outline-variant: #dac1ba;
+  --color-primary-fixed: #ffdbd0;
+
+  --font-display: "Lexend", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --spacing-section-gap: 120px;
+  --spacing-container-max: 1280px;
+  --spacing-margin-mobile: 24px;
+  --spacing-margin-desktop: 64px;
+  --nav-height: 4.5rem;
+
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface antialiased;
+    font-family: var(--font-body);
+  }
+
+  ::selection {
+    @apply bg-primary-container text-on-primary-container;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .glass-effect {
+    background: rgba(247, 249, 251, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .card-shadow {
+    box-shadow:
+      0 10px 30px -5px rgba(148, 73, 46, 0.04),
+      0 4px 10px -5px rgba(148, 73, 46, 0.02);
+  }
+
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    line-height: 1;
+  }
+
+  .caret-down {
+    font-family: "Material Symbols Outlined";
+    font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+    font-size: clamp(2.75rem, 7vw, 4rem);
+    line-height: 1;
+  }
+}
