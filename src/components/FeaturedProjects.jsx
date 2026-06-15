@@ -20,6 +20,10 @@ function LoopingVideoPlayer({ src, loopStart, loopEnd, playbackRate = 1, scale =
 
     applyPlaybackRate();
 
+    const seekToThumbnail = () => {
+      video.currentTime = loopStart;
+    };
+
     const startPlayback = () => {
       if (
         video.currentTime < loopStart ||
@@ -55,12 +59,20 @@ function LoopingVideoPlayer({ src, loopStart, loopEnd, playbackRate = 1, scale =
     };
 
     observer.observe(container);
+    video.addEventListener("loadedmetadata", seekToThumbnail);
+    video.addEventListener("loadeddata", seekToThumbnail);
     video.addEventListener("loadedmetadata", applyPlaybackRate);
     video.addEventListener("timeupdate", handleTimeUpdate);
     video.addEventListener("ended", handleEnded);
 
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      seekToThumbnail();
+    }
+
     return () => {
       observer.disconnect();
+      video.removeEventListener("loadedmetadata", seekToThumbnail);
+      video.removeEventListener("loadeddata", seekToThumbnail);
       video.removeEventListener("loadedmetadata", applyPlaybackRate);
       video.removeEventListener("timeupdate", handleTimeUpdate);
       video.removeEventListener("ended", handleEnded);
@@ -71,7 +83,7 @@ function LoopingVideoPlayer({ src, loopStart, loopEnd, playbackRate = 1, scale =
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
       <video
         ref={videoRef}
-        src={src}
+        src={loopStart > 0 ? `${src}#t=${loopStart}` : src}
         muted
         playsInline
         preload="auto"
