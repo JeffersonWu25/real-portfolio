@@ -33,13 +33,13 @@ function LoopingVideoPlayer({ src, loopStart, loopEnd, playbackRate = 1, scale =
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 1) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
           startPlayback();
         } else {
           video.pause();
         }
       },
-      { threshold: 1 },
+      { threshold: [0, 0.5, 1] },
     );
 
     const handleTimeUpdate = () => {
